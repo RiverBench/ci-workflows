@@ -4,7 +4,6 @@ on:
 
 jobs:
   package:
-    needs: validate
     name: "Package dataset"
     runs-on: "ubuntu-latest"
     container: ghcr.io/riverbench/ci-worker:main
