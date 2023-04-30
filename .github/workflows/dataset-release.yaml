@@ -30,7 +30,7 @@ jobs:
         with:
           lookup-only: true
           path: package_out
-          key: cache-package-${{ hashFiles('/app/ci-worker-assembly.jar', 'dataset/metadata.ttl', 'release.json') }}
+          key: cache-package-${{ hashFiles('release.json') }}
 
       - name: "Package the dataset"
         if: steps.cache-dataset-restore.outputs.cache-hit != 'true'
