@@ -23,6 +23,7 @@ jobs:
       - name: "Fetch source release info"
         run: |
           wget -O release.json "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/tags/source"
+          grep 'node_id' release.json > release_keys.txt
 
       - name: Check if the packaged dataset is cached
         id: cache-dataset-restore
@@ -30,7 +31,7 @@ jobs:
         with:
           lookup-only: true
           path: package_out
-          key: cache-package-${{ hashFiles('release.json') }}
+          key: cache-package-${{ hashFiles('release_keys.txt') }}
 
       - name: "Package the dataset"
         if: steps.cache-dataset-restore.outputs.cache-hit != 'true'
