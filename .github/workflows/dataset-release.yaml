@@ -5,6 +5,8 @@ on:
 jobs:
   package:
     name: "Package dataset"
+    # Skip CI if this is the template repository.
+    if: github.repository != 'RiverBench/dataset-template'
     runs-on: "ubuntu-latest"
     container: ghcr.io/riverbench/ci-worker:main
     # Force only one package job to execute at a time, to avoid duplicating work.

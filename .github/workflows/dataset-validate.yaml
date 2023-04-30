@@ -5,6 +5,8 @@ on:
 jobs:
   validate:
     name: "Validate dataset"
+    # Skip CI if this is the template repository.
+    if: github.repository != 'RiverBench/dataset-template'
     runs-on: "ubuntu-latest"
     container: ghcr.io/riverbench/ci-worker:main
 
