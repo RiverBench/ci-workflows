@@ -1,0 +1,32 @@
+name: "Wait for API rate limit"
+on:
+  workflow_call:
+    inputs:
+      needed-calls:
+        required: true
+        type: number
+
+jobs:
+  wait:
+    name: "Wait"
+    runs-on: "ubuntu-latest"
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      NEEDED_CALLS: ${{ inputs.needed-calls }}
+    steps:
+      - name: "Wait for rate limit reset"
+        run: |
+          sleep $((RANDOM % 10))
+          rate=$(gh api rate_limit | jq '.rate')
+          # we need ~150 requests, to be safe
+          remaining=$(echo "$rate" | jq '.remaining')
+          if [ "$remaining" -lt "$NEEDED_CALLS" ]; then
+              current_time=$(date +%s)
+              reset_time=$(echo "$rate" | jq '.reset')
+              wait=$(expr $reset_time - $current_time)
+              echo "Rate limit remaining is $remaining, waiting for $wait seconds to reset"
+              sleep $wait
+              rate=$(gh api rate_limit | jq '.rate')
+              remaining=$(echo "$rate" | jq '.remaining')
+              echo "Rate limit has reset to $remaining requests"
+          fi
