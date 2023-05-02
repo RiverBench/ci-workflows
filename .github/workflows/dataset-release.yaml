@@ -103,19 +103,6 @@ jobs:
           artifacts: 'release/*'
           removeArtifacts: true
           generateReleaseNotes: true
-
-      - name: Upload files for the release (2)
-        uses: ncipollo/release-action@v1.12.0
-        with:
-          allowUpdates: true
-          replacesArtifacts: false
-          prerelease: true
-          draft: false
-          makeLatest: false
-          tag: "dev"
-          name: "Development pre-release"
-          artifacts: 'release/*'
-          generateReleaseNotes: true
           artifactErrorsFailBuild: true
 
   trigger-doc-update-dev:
@@ -207,19 +194,6 @@ jobs:
       - name: Upload files for the release
         uses: ncipollo/release-action@v1.12.0
         with:
-          prerelease: false
-          draft: false
-          makeLatest: true
-          tag: "${{ env.GITHUB_REF_NAME }}"
-          name: "${{ env.GITHUB_REF_NAME }}"
-          artifacts: 'release/*'
-          generateReleaseNotes: true
-
-      - name: Upload files for the release (2)
-        uses: ncipollo/release-action@v1.12.0
-        with:
-          allowUpdates: true
-          replacesArtifacts: false
           prerelease: false
           draft: false
           makeLatest: true
