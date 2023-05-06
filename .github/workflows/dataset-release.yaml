@@ -92,7 +92,7 @@ jobs:
           path: doc_out/README.md
 
       - name: Upload files for the release
-        uses: ncipollo/release-action@v1.12.0
+        uses: RiverBench/release-action@exponential-backoff
         with:
           allowUpdates: true
           prerelease: true
@@ -192,7 +192,7 @@ jobs:
           tar -czf release/docs.tar.gz -C doc_out/docs .
 
       - name: Upload files for the release
-        uses: ncipollo/release-action@v1.12.0
+        uses: RiverBench/release-action@exponential-backoff
         with:
           prerelease: false
           draft: false
