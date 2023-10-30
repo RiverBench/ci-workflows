@@ -27,4 +27,4 @@ jobs:
           path: schema
 
       - name: "Validate the dataset"
-        run: ci-worker validate-repo dataset release.json schema/src/dataset-shacl.ttl
+        run: ci-worker validate-repo dataset release.json schema/src/dataset-shacl.ttl schema/src/imports
