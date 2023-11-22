@@ -84,7 +84,7 @@ jobs:
           mkdir doc_out
           ci-worker dataset-doc-gen release/metadata.ttl dataset schema doc_out
           mkdir doc_out/docs/data
-          mv release/sample_* doc_out/docs/data
+          mv package_out/sample_* doc_out/docs/data
           tar -czf release/docs.tar.gz -C doc_out/docs .
 
       - name: Upload README.md artifact
@@ -192,7 +192,7 @@ jobs:
           mkdir doc_out
           ci-worker dataset-doc-gen release/metadata.ttl dataset schema doc_out
           mkdir doc_out/docs/data
-          mv release/sample_* doc_out/docs/data
+          mv package_out/sample_* doc_out/docs/data
           tar -czf release/docs.tar.gz -C doc_out/docs .
 
       - name: Upload files for the release
