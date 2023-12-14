@@ -22,5 +22,5 @@ jobs:
           repository: 'RiverBench/schema'
           path: schema
 
-      - name: "Validate the dataset"
+      - name: "Validate the category's metadata"
         run: ci-worker validate-category category schema
