@@ -115,3 +115,16 @@ jobs:
           default_author: github_actions
           add: 'README.md'
           push: true
+
+  trigger-category-update:
+    needs: update-readme
+    name: "Trigger category update in the main repository"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Trigger repository_dispatch"
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.PAT_MAIN_REPO_HOOKS }}
+          repository: RiverBench/RiverBench
+          event-type: category-update
+          client-payload: '{"repo": "${{ github.repository }}" }'

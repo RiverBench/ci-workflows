@@ -113,7 +113,7 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Trigger repository_dispatch"
-        uses: peter-evans/repository-dispatch@v2
+        uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.PAT_DOC_REPO_HOOKS }}
           repository: RiverBench/riverbench.github.io
@@ -148,7 +148,7 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Trigger repository_dispatch"
-        uses: peter-evans/repository-dispatch@v2
+        uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.PAT_MAIN_REPO_HOOKS }}
           repository: RiverBench/RiverBench
@@ -213,7 +213,7 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Trigger repository_dispatch"
-        uses: peter-evans/repository-dispatch@v2
+        uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.PAT_DOC_REPO_HOOKS }}
           repository: RiverBench/riverbench.github.io
