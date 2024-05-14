@@ -166,8 +166,8 @@ jobs:
       - name: "Trigger repository_dispatch"
         uses: peter-evans/repository-dispatch@v3
         with:
-          token: ${{ secrets.PAT_MAIN_REPO_HOOKS }}
-          repository: RiverBench/RiverBench
+          token: ${{ secrets.PAT_DATASET_CAT_REPO_HOOKS }}
+          repository: 'RiverBench/category-${{ matrix.category }}'
           event-type: dataset-update
           client-payload: '{"repo": "${{ github.repository }}" }'
 
