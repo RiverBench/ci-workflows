@@ -93,6 +93,29 @@ jobs:
           generateReleaseNotes: true
           artifactErrorsFailBuild: true
 
+  trigger-doc-update:
+    needs: release
+    name: "Trigger documentation update"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Trigger repository_dispatch (dev release)"
+        if: github.ref == 'refs/heads/main'
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.PAT_DOC_REPO_HOOKS }}
+          repository: RiverBench/riverbench.github.io
+          event-type: category-doc-update
+          client-payload: '{ "repo": "${{ github.repository }}", "tag": "dev" }'
+
+      - name: "Trigger repository_dispatch (tagged release)"
+        if: github.ref != 'refs/heads/main'
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.PAT_DOC_REPO_HOOKS }}
+          repository: RiverBench/riverbench.github.io
+          event-type: dataset-doc-update
+          client-payload: '{ "repo": "${{ github.repository }}", "tag": "${{ github.ref_name }}" }'
+
   update-readme:
     needs: release
     if: github.ref == 'refs/heads/main'
