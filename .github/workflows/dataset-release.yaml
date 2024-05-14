@@ -142,10 +142,26 @@ jobs:
           add: 'README.md'
           push: true
 
-  trigger-dataset-update:
+  trigger-dataset-update-main:
     needs: update-readme
     name: "Trigger dataset update in the main repository"
     runs-on: "ubuntu-latest"
+    steps:
+      - name: "Trigger repository_dispatch"
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.PAT_MAIN_REPO_HOOKS }}
+          repository: RiverBench/RiverBench
+          event-type: dataset-update
+          client-payload: '{"repo": "${{ github.repository }}" }'
+
+  trigger-dataset-update-category:
+    needs: update-readme
+    name: "Trigger dataset update in the category repositories"
+    runs-on: "ubuntu-latest"
+    strategy:
+      matrix:
+        category: [flat, stream]
     steps:
       - name: "Trigger repository_dispatch"
         uses: peter-evans/repository-dispatch@v3
