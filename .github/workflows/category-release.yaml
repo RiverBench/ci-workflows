@@ -1,8 +1,6 @@
 name: "Release"
 on:
   workflow_call: {}
-  repository_dispatch:
-    types: [dataset-update]
 
 jobs:
   wait:

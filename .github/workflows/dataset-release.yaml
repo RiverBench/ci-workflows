@@ -156,7 +156,7 @@ jobs:
           client-payload: '{"repo": "${{ github.repository }}" }'
 
   trigger-dataset-update-category:
-    needs: update-readme
+    needs: pre-release
     name: "Trigger dataset update in the category repositories"
     runs-on: "ubuntu-latest"
     strategy:
