@@ -55,6 +55,7 @@ jobs:
           mv package_out/tasks/*.* release/ || true
           mv package_out/profiles/*.* release/
           mv package_out/category/metadata.* release/
+          mv package_out/dump.jelly release/ || true
           mv doc_out/category/README.md . || true
           tar -czf release/docs.tar.gz -C doc_out .
 
