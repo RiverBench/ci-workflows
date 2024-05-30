@@ -114,7 +114,7 @@ jobs:
         with:
           token: ${{ secrets.PAT_DOC_REPO_HOOKS }}
           repository: RiverBench/riverbench.github.io
-          event-type: dataset-doc-update
+          event-type: category-doc-update
           client-payload: '{ "repo": "${{ github.repository }}", "tag": "${{ github.ref_name }}" }'
 
   update-readme:
