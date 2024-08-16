@@ -44,7 +44,7 @@ jobs:
       - name: "CI cache"
         uses: actions/cache@v4
         with:
-          path: ./ci-cache
+          path: ./.ci-cache
           key: ${{ github.ref }}
 
       - name: "Package the category"
