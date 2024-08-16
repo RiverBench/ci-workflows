@@ -41,6 +41,12 @@ jobs:
           repository: 'RiverBench/RiverBench'
           path: main
 
+      - name: "CI cache"
+        uses: actions/cache@v4
+        with:
+          path: ./ci-cache
+          key: ${{ github.ref }}
+
       - name: "Package the category"
         run: |
           if [ "$GITHUB_REF_NAME" = "main" ]; then VERSION="dev"; else VERSION="${GITHUB_REF_NAME#v}"; fi

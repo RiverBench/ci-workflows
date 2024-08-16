@@ -41,7 +41,7 @@ jobs:
 
       - name: Save the packaged dataset in cache
         id: cache-dataset-save
-        uses: actions/cache/save@v3
+        uses: actions/cache/save@v4
         if: steps.cache-dataset-restore.outputs.cache-hit != 'true'
         with:
           path: package_out
@@ -57,7 +57,7 @@ jobs:
     steps:
       - name: Restore packaged dataset from cache
         id: cache-dataset-restore
-        uses: actions/cache/restore@v3
+        uses: actions/cache/restore@v4
         with:
           path: package_out
           key: ${{ needs.package.outputs.package-key }}
