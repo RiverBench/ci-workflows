@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: "Checkout dataset repository"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: dataset
 
@@ -21,7 +21,7 @@ jobs:
           wget -O release.json "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/tags/source"
 
       - name: "Checkout schema repository"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: 'RiverBench/schema'
           path: schema

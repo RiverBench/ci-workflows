@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: "Checkout dataset repository"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: dataset
 
@@ -27,7 +27,7 @@ jobs:
 
       - name: Check if the packaged dataset is cached
         id: cache-dataset-restore
-        uses: actions/cache/restore@v3
+        uses: actions/cache/restore@v4
         with:
           lookup-only: true
           path: package_out
@@ -63,7 +63,7 @@ jobs:
           key: ${{ needs.package.outputs.package-key }}
 
       - name: "Checkout dataset repository"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: dataset
 
@@ -74,7 +74,7 @@ jobs:
           mv package_out/*.gz release
 
       - name: Fetch the schema repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: 'RiverBench/schema'
           path: schema
@@ -88,13 +88,13 @@ jobs:
           tar -czf release/docs.tar.gz -C doc_out/docs .
 
       - name: Upload README.md artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: readme
           path: doc_out/README.md
 
       - name: Upload files for the release
-        uses: RiverBench/release-action@v0.0.4
+        uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
           prerelease: true
@@ -127,10 +127,10 @@ jobs:
     permissions: write-all
     steps:
       - name: "Checkout dataset repository"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Restore README.md
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: readme
 
@@ -181,13 +181,13 @@ jobs:
     steps:
       - name: Restore packaged dataset from cache
         id: cache-dataset-restore
-        uses: actions/cache/restore@v3
+        uses: actions/cache/restore@v4
         with:
           path: package_out
           key: ${{ needs.package.outputs.package-key }}
 
       - name: "Checkout dataset repository"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: dataset
 
@@ -198,7 +198,7 @@ jobs:
           mv package_out/*.gz release
 
       - name: Fetch the schema repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: 'RiverBench/schema'
           path: schema
@@ -212,7 +212,7 @@ jobs:
           tar -czf release/docs.tar.gz -C doc_out/docs .
 
       - name: Upload files for the release
-        uses: RiverBench/release-action@v0.0.4
+        uses: ncipollo/release-action@v1
         with:
           prerelease: false
           draft: false
