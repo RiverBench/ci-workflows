@@ -33,11 +33,15 @@ jobs:
           path: package_out
           key: cache-package-${{ hashFiles('release_keys.txt') }}
 
+      - name: "Download the dataset source archive"
+        if: steps.cache-dataset-restore.outputs.cache-hit != 'true'
+        run: |
+          wget -O source.tar.gz "https://github.com/${GITHUB_REPOSITORY}/releases/download/source/source.tar.gz"
+
       - name: "Package the dataset"
         if: steps.cache-dataset-restore.outputs.cache-hit != 'true'
         run: |
           mkdir package_out
-          wget -O source.tar.gz "https://github.com/${GITHUB_REPOSITORY}/releases/download/source/source.tar.gz"
           ci-worker package dataset source.tar.gz package_out
 
       - name: Save the packaged dataset in cache
