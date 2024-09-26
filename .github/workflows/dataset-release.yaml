@@ -84,6 +84,13 @@ jobs:
           repository: 'RiverBench/schema'
           path: schema
 
+      - name: "Restore CI cache"
+        uses: actions/cache/restore@v4
+        with:
+          path: ./.ci-cache
+          key: ci-cache-???
+          restore-keys: ci-cache-
+
       - name: Generate documentation
         run: |
           mkdir doc_out
@@ -91,6 +98,12 @@ jobs:
           mkdir doc_out/docs/data
           mv package_out/sample_* doc_out/docs/data
           tar -czf release/docs.tar.gz -C doc_out/docs .
+
+      - name: "Save CI cache"
+        uses: actions/cache/save@v4
+        with:
+          path: ./.ci-cache
+          key: ci-cache-${{ hashFiles('./.ci-cache/**') }}
 
       - name: Upload README.md artifact
         uses: actions/upload-artifact@v4
@@ -207,6 +220,15 @@ jobs:
         with:
           repository: 'RiverBench/schema'
           path: schema
+
+      # Only restore the CI cache, don't save it.
+      # We won't be releasing the same tag again anyway.
+      - name: "Restore CI cache"
+        uses: actions/cache/restore@v4
+        with:
+          path: ./.ci-cache
+          key: ci-cache-???
+          restore-keys: ci-cache-
 
       - name: Generate documentation
         run: |

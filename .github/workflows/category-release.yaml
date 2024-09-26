@@ -45,8 +45,8 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: ./.ci-cache
-          key: ci-cache-${{ github.ref }}-???
-          restore-keys: ci-cache-${{ github.ref }}-
+          key: ci-cache-???
+          restore-keys: ci-cache-
 
       - name: "Package the category"
         run: |
@@ -67,10 +67,11 @@ jobs:
           tar -czf release/docs.tar.gz -C doc_out .
 
       - name: "Save CI cache"
+        if: github.ref == 'refs/heads/main'
         uses: actions/cache/save@v4
         with:
           path: ./.ci-cache
-          key: ci-cache-${{ github.ref }}-${{ hashFiles('./.ci-cache/**') }}
+          key: ci-cache-${{ hashFiles('./.ci-cache/**') }}
 
       - name: Upload the README artifact
         if: github.ref == 'refs/heads/main'
