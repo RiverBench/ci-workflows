@@ -41,11 +41,12 @@ jobs:
           repository: 'RiverBench/RiverBench'
           path: main
 
-      - name: "CI cache"
-        uses: actions/cache@v4
+      - name: "Restore CI cache"
+        uses: actions/cache/restore@v4
         with:
           path: ./.ci-cache
-          key: ${{ github.ref }}
+          key: ci-cache-${{ github.ref }}-???
+          restore-keys: ci-cache-${{ github.ref }}-
 
       - name: "Package the category"
         run: |
@@ -64,6 +65,12 @@ jobs:
           mv package_out/dump.jelly release/ || true
           mv doc_out/category/README.md . || true
           tar -czf release/docs.tar.gz -C doc_out .
+
+      - name: "Save CI cache"
+        uses: actions/cache/save@v4
+        with:
+          path: ./.ci-cache
+          key: ci-cache-${{ github.ref }}-${{ hashFiles('./.ci-cache/**') }}
 
       - name: Upload the README artifact
         if: github.ref == 'refs/heads/main'
